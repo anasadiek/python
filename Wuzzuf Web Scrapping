@@ -69,8 +69,19 @@ driver.quit()
 import pandas as pd
 import csv
 df  =  pd.DataFrame({'title':titlelist,'company':companylist,'add':adresslist,'time':agolist,'link':linklist,'details':detailslist,'descrption':descriptionlist})
+df.to_csv("F:\pandas\list.csv",sep=',')
+print(df)
 
 
 
+
+
+
+
+import pandas as pd
+import csv
+alist=  {'title':titlelist,'company':companylist,'add':adresslist,'time':agolist,'link':linklist,'details':detailslist,'descrption':descriptionlist}
+df = pd.DataFrame.from_dict(alist, orient='index')
+df=df.transpose()
 df.to_csv("F:\pandas\list.csv",sep=',')
 print(df)
