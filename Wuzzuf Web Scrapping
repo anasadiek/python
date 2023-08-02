@@ -1,0 +1,76 @@
+search = input("please write the job name :  ")
+search=search.replace(" ","+")
+
+
+titlelist=[]
+companylist=[]
+agolist=[]
+adresslist=[]
+linklist=[]
+detailslist=[]
+descriptionlist=[]
+
+from selenium import webdriver
+driver = webdriver.Chrome()
+for page in range(0,3):
+    url="https://wuzzuf.net/search/jobs/?a=navbl&q={search}&start={page}".format(page=page,search=search)
+    resp = driver.get(url)
+
+    title = driver.find_elements('xpath','//h2[@class="css-m604qf"]')
+    for t in title:
+        titlelist.append(t.text)
+    company = driver.find_elements('xpath','//a[@class="css-17s97q8"]')
+    for c in company:
+        companylist.append(c.text)
+    ago=driver.find_elements('xpath','//div[@class="css-laomuu"]//div//div')
+    for g in ago : 
+        agolist.append(g.text)
+    adress=driver.find_elements('xpath','//span[@class="css-5wys0k"]')
+    for d in adress:
+        adresslist.append(d.text)
+    link=driver.find_elements('xpath','//h2[@class="css-m604qf"]//a')
+    for l in link:
+        linklist.append(l.get_attribute("href"))
+    for l2 in linklist:
+        driver.get(l2)
+        details=driver.find_elements('xpath','//section[@class="css-3kx5e2"]')
+        for e in details :
+            detailslist.append(e.text)
+        description=driver.find_elements('xpath','//div[@class="css-1uobp1k"]')
+        for s in description:
+            descriptionlist.append(s.text)
+
+
+        
+
+
+    
+    
+
+
+
+
+
+
+print(descriptionlist)
+print(detailslist)
+print(companylist)
+print(titlelist)
+print(agolist)
+print(adresslist)
+print(linklist)
+driver.quit()
+
+
+
+
+
+
+import pandas as pd
+import csv
+df  =  pd.DataFrame({'title':titlelist,'company':companylist,'add':adresslist,'time':agolist,'link':linklist,'details':detailslist,'descrption':descriptionlist})
+
+
+
+df.to_csv("F:\pandas\list.csv",sep=',')
+print(df)
