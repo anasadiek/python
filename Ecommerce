@@ -1,0 +1,39 @@
+import pandas as pd
+file = pd.read_csv("Ecommerce Purchases")
+
+file.head(10).sort_values('Purchase Price',ascending=True)
+
+
+file.tail(11)
+file.info()
+file.isnull().count()
+file[file['Language']=='fr'].count()
+file[file['Job'].str.contains('engineer')].count()
+len(file[(file['CC Provider']=='Mastercard') &(file['Purchase Price']>50)])
+
+file[file['Credit Card']==4664825258997302]['Email']
+
+count=0
+countno=0
+for i in file['CC Exp Date']:
+    if i.split('/')[1]=='20':
+        count=count+1
+    else:
+        countno=countno+1
+
+print(count)
+print(countno)
+
+
+exp = file['CC Exp Date'].str.split('/',expand=True)[1]
+exp
+
+
+
+
+mail = file['Email'].str.split('@',expand=True)[1]
+countm=0
+for m in mail:
+    if m =='yahoo.com':
+        countm = countm+1
+mail.value_counts().head(10)
