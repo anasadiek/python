@@ -25,10 +25,15 @@ print(count)
 print(countno)
 
 
-exp = file['CC Exp Date'].str.split('/',expand=True)[1]
-exp
-
-
+countexp=0
+countstill=0
+for e in email:
+    if int(e)>20 :
+        countexp = countexp+1
+    else:
+        countstill = countstill+1
+print('Expired',countexp)
+print(countstill)
 
 
 mail = file['Email'].str.split('@',expand=True)[1]
