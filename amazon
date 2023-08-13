@@ -1,0 +1,66 @@
+import selenium 
+from selenium import webdriver 
+driver = webdriver.Chrome()
+titlelist=[]
+pricelist=[]
+linklist=[]
+
+
+import time 
+for page in range(2,3):
+    url = "https://www.amazon.eg/s?i=electronics&rh=n%3A21832883031&fs=true&page={page}&language=en&qid=1691926713&ref=sr_pg_2".format(page=page)
+    driver.get(url)
+    link = driver.find_elements('xpath','//a[@class="a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal"]')
+    for l in link:
+        linklist.append(l.get_attribute("href"))
+
+
+
+
+
+titlelist=[]
+pricelist=[]
+
+import selenium 
+from selenium import webdriver 
+driver = webdriver.Chrome()
+
+for u in linklist:
+    driver.get(u)
+    title = driver.find_elements('xpath','//span[@id="productTitle"]')
+    for t in title:
+        if t.text =="":
+            titlelist.append('0')
+        else:
+            titlelist.append(t.text)
+            
+    price = driver.find_elements('xpath','//span[@class="a-price aok-align-center reinventPricePriceToPayMargin priceToPay"]//span[@aria-hidden="true"]//span[@class="a-price-whole"]')
+    for p in price:
+        if len(price) > int(0):
+            pricelist.append(p.text)
+        else:
+            pricelist.append(t.text)
+            
+    
+
+
+
+
+pricelist=[]
+
+
+import selenium 
+from selenium import webdriver 
+driver = webdriver.Chrome()
+
+
+url="https://www.amazon.eg/-/en/Realme-Dual-256GB-Rainy-Night/dp/B0BXQ2HNDC/ref=sr_1_50?qid=1691931119&s=electronics&sr=1-50"
+driver.get(url)
+for p in price:
+    price = driver.find_elements('xpath','//span[@class="a-price aok-align-center reinventPricePriceToPayMargin priceToPay"]//span[@aria-hidden="true"]//span[@class="a-price-whole"]')
+    if price is True:
+        pricelist.append(p.text)
+    else:
+        pricelist.append(1)
+
+
