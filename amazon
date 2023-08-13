@@ -64,3 +64,31 @@ for p in price:
         pricelist.append(1)
 
 
+
+
+
+titlelist=[]
+pricelist=[]
+
+import selenium 
+from selenium import webdriver 
+driver = webdriver.Chrome()
+
+for u in linklist:
+    driver.get(u)
+    title = driver.find_elements('xpath','//span[@id="productTitle"]')
+    for t in title:
+        if t.text =="":
+            titlelist.append('0')
+        else:
+            titlelist.append(t.text)
+            
+    price = driver.find_elements('xpath','//span[@class="a-price aok-align-center reinventPricePriceToPayMargin priceToPay"]//span[@aria-hidden="true"]//span[@class="a-price-whole"]')
+    if len(price) >0:
+        for p in price:
+            pricelist.append('p.text')
+            print(p.Text)
+    else:
+        pricelist.append('0')
+            
+    
