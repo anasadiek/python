@@ -124,5 +124,26 @@ for u in linklist:
     else:
         pricelist.append('0')
             
-    
+
+
+
+titlelist=[]
+pricelist=[]
+from selenium.common.exceptions import NoSuchElementException
+import selenium 
+from selenium import webdriver 
+driver = webdriver.Chrome()
+
+for u in linklist:
+    driver.get(u)
+    title = driver.find_elements('xpath','//span[@id="productTitle"]')
+    for t in title:
+        titlelist.append(t.text)
+    price = driver.find_elements('xpath','//span[@class="a-price aok-align-center reinventPricePriceToPayMargin priceToPay"]//span[@aria-hidden="true"]//span[@class="a-price-whole"]')
+    if len(price) >=1:
+        for p in price:
+            pricelist.append(p.text)
+    else:
+        pricelist.append(str('none'))
+            
 
