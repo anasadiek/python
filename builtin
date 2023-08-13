@@ -1,0 +1,68 @@
+import selenium 
+from selenium import webdriver
+driver = webdriver.Chrome()
+import time
+linklist=[]
+for page in range(1,3):
+    url="https://builtin.com/companies/size/11-50-employees/tech/postgresql-companies?ni={page}".format(page=page)
+    s= driver.get(url)
+    time.sleep(3)
+    link = driver.find_elements('xpath','//div[@class="d-flex align-center"]//a[@data-v-5b776c84]')
+    for l in link :
+        linklist.append(l.get_attribute('href'))
+
+        
+
+
+
+import selenium 
+from selenium import webdriver
+driver = webdriver.Chrome()
+titlelist=[]
+citylist=[]
+for u in linklist:
+    driver.get(u)
+    title=driver.find_elements('xpath','//h2[@data-v-682d85ae]')
+    if len(title)>=1:
+        for t in title:
+            titlelist.append(t.text)
+    else:
+        titlelist.append(str('none'))
+    city=driver.find_elements('xpath','//div[@class="info-content"]//p[@data-v-347c5256]')
+    if len(city)>=1:
+        for c in city:
+            citylist.append(c.text)
+    else:
+        citylist.append('none')
+
+
+
+
+
+
+import selenium 
+from selenium import webdriver
+driver = webdriver.Chrome()
+import time
+titlelist=[]
+citylist=[]
+for u in linklist:
+    driver.get(u)
+    time.sleep(3)
+    title=driver.find_elements('xpath','//h2[@data-v-682d85ae]')
+    print(title)
+    for t in title:
+        titlelist.append(t.text)
+    city=driver.find_elements('xpath','//div[@class="info-content"]//p[@data-v-347c5256]')
+    print(city)
+    for c in city:
+        citylist.append(c.text)
+
+
+
+
+
+
+import pandas as pd 
+file = pd.DataFrame.from_dict({'l':linklist,'t':titlelist,'c':citylist},orient='index').transpose()
+file
