@@ -97,3 +97,108 @@ for u in linklist:
 
 
 
+
+appnamelist=[]
+companynamelist=[]
+contactlist=[]
+technicalnamelist=[]
+reqlist=[]
+pricelist=[]
+dlist=[]
+revlist=[]
+ratinglist=[]
+
+import time
+import selenium 
+from selenium import webdriver
+driver = webdriver.Chrome()
+
+
+for u in linklist:
+    cont = driver.get(u)
+    time.sleep(2)
+    title= driver.find_elements('xpath','//div[@id="loempia_app_infos"]/div[1]/div[1]/h1/b')
+    for t in title:
+            appnamelist.append(t.text)
+    rate = driver.find_elements('xpath','/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[2]/span[1]/b')
+    for r in rate:
+          ratinglist.append(r.text)
+    company = driver.find_elements('xpath','/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[1]/div[1]/a/span/span[1]')
+    for c in company:
+          companynamelist.append(c.text)
+    contact = driver.find_elements('xpath','/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[3]/table/tbody/tr[3]/td[2]/a')
+    for o in contact:
+          contactlist.append(o.text)
+    techname =driver.find_elements('xpath','/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[3]/table/tbody/tr[1]/td[2]/code')
+    for e in techname:
+          technicalnamelist.append(e.text)
+    price=driver.find_elements('xpath','/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[1]/div[2]/h1/b/span')
+    for p in price:
+          pricelist.append(p.text)
+    info = driver.find_elements('xpath','//div[@id="loempia_app_infos"]/div[1]/div[1]/h1/b')
+    for i in info :
+          reqlist.append(i.text)
+      
+
+
+      
+
+
+
+
+
+
+appnamelist=[]
+companynamelist=[]
+contactlist=[]
+technicalnamelist=[]
+reqlist=[]
+pricelist=[]
+dlist=[]
+revlist=[]
+ratinglist=[]
+
+import time
+import selenium 
+from selenium import webdriver
+driver = webdriver.Chrome()
+
+
+for u in linklist:
+    cont = driver.get(u)
+    time.sleep(2)
+    title= driver.find_elements('xpath','//div[@id="loempia_app_infos"]/div[1]/div[1]/h1/b')
+    for t in title:
+            appnamelist.append(t.text)
+    rate = driver.find_elements('xpath','/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[2]/span[1]/b')
+    for r in rate:
+          ratinglist.append(r.text)
+    company = driver.find_elements('xpath','/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[1]/div[1]/a/span/span[1]')
+    for c in company:
+          companynamelist.append(c.text)
+    contact = driver.find_elements('xpath','/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[3]/table/tbody/tr[3]/td[2]/a')
+    for o in contact:
+          contactlist.append(o.text)
+    techname =driver.find_elements('xpath','/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[3]/table/tbody/tr[1]/td[2]/code')
+    for e in techname:
+          technicalnamelist.append(e.text)
+    price=driver.find_elements('xpath','/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[1]/div[2]/h1/b/span')
+    for p in price:
+          pricelist.append(p.text)
+    info = driver.find_elements('xpath','//div[@id="loempia_app_infos"]/div[1]/div[1]/h1/b')
+    for i in info :
+          reqlist.append(i.text)
+      
+
+
+      
+
+
+
+
+
+
+
+
+
+
