@@ -1,0 +1,52 @@
+linklist=[]
+
+
+
+import selenium 
+from selenium import webdriver
+driver = webdriver.Chrome()
+for page in range(1,3):
+    url="https://apps.odoo.com/apps/modules/browse/page/{page}?order=Relevance".format(page=page)
+    driver.get(url)
+    link = driver.find_elements('xpath','//div[@class="loempia_app_entry loempia_app_card col-md-6 col-lg-3 "]//a')
+    for l in link :
+        linklist.append(l.get_attribute('href'))
+
+
+
+
+
+
+
+
+
+appnamelist=[]
+companynamelist=[]
+contactlist=[]
+technicalnamelist=[]
+reqlist=[]
+pricelist=[]
+dlist=[]
+revlist=[]
+ratinglist=[]
+
+
+import selenium 
+from selenium import webdriver
+driver = webdriver.Chrome()
+
+
+for u in linklist:
+    cont = driver.get(u)
+    title= driver.find_elements('xpath','/html/body/div[1]/main/div/div[1]/div[1]/div[2]/div[1]/div[1]/h1/b')
+    if title in cont:
+        for t in title:
+            appnamelist.append(t.text)
+        else:
+            appnamelist.append('no')
+
+
+
+
+
+
