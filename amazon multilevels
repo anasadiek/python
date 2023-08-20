@@ -1,0 +1,23 @@
+from selenium import webdriver
+driver = webdriver.Chrome()
+titlelist=[]
+pricelist=[]
+itemslink=[]
+detailslist=[]
+
+
+
+for u in linklist:
+    driver.get(u)
+    price=driver.find_elements('xpath','//*[@id="corePriceDisplay_desktop_feature_div"]/div[1]/span[2]/span[2]/span[2]')
+    details=driver.find_elements('xpath','//span[@class="a-size-base po-break-word"]')
+    for d in details:
+        detailslist.append(d.text)
+        for p in price:
+            pricelist.append(p.text)
+        title= driver.find_elements('xpath','//span[@id="productTitle"]')
+        for t in title:
+            titlelist.append(t.text)
+            itemslink.append(u)
+    
+
