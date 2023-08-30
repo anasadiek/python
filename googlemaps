@@ -1,0 +1,23 @@
+import selenium 
+from selenium import webdriver
+driver = webdriver.Chrome()
+import time 
+itemlist=[]
+namlist=[]
+urllist=[]
+
+
+for l in linklist:
+    driver.get(l)
+    time.sleep(1)
+    items = driver.find_elements('xpath','//div[@class="Io6YTe fontBodyMedium kR99db "]')
+    for i in items:
+        itemlist.append(i.get_attribute("innerText"))
+        name = driver.find_elements('xpath','//h1[@class="DUwDvf lfPIob"]')
+        for n in name:
+            namlist.append(n.text)
+            urllist.append(l)
+        
+        
+
+
