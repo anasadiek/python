@@ -1,0 +1,78 @@
+
+import pandas as pd 
+from pandasql import sqldf 
+import selenium 
+from selenium import webdriver
+driver = webdriver.Chrome()
+import time 
+
+
+
+namelist = []
+valuelist= []
+
+url = "https://www.trustiu.com/en/websites-for-sale?&page=1"
+
+
+
+driver.get(url)
+
+
+time.sleep(3)
+name = driver.find_elements('xpath','//p[@class="t-body--m font-bold"]')
+for n in name : 
+    namelist.append(n.text)
+value = driver.find_elements('xpath','//p[@class="card__value "]')
+for v in value: 
+    valuelist.append(v.get_attribute("innerText"))
+
+
+
+    
+
+
+
+
+
+import pandas as pd 
+
+file = pd.DataFrame.from_dict({'v':valuelist,'s':namelist},orient='index').transpose()
+
+file.to_csv("test.csv")
+
+
+
+
+
+file2 = pd.read_csv("test.csv")
+
+file2
+
+df =pd.DataFrame(file2)
+
+df
+
+
+
+
+
+import pyodbc as pd
+
+conn = pd.connect('Driver={SQL Server};'
+                      'Server=DESKTOP-E0FHAGH\SQLEXPRESS;'
+                      'Database=pandastest;'
+                      'Trusted_Connection=yes;')
+cursor = conn.cursor()
+
+cursor.execute("select * from table1")
+
+for row in df.itertuples():
+    cursor.execute('''
+                INSERT INTO table1 (item, link)
+                VALUES (?,?)
+                ''',
+                row.v, 
+                row.s,
+                )
+    
+conn.commit()
