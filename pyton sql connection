@@ -94,3 +94,14 @@ file2
 
 
 
+import pandas as pd 
+import pyodbc
+
+sql_conn = pyodbc.connect('DRIVER={sql server}; SERVER=DESKTOP-E0FHAGH\SQLEXPRESS;DATABASE=pandastest;Trusted_Connection=yes') 
+
+query = "select * from table1"
+
+
+sql_conn.execute('''insert into table1 values (5,6,7,8)''')
+
+sql_conn.commit()
