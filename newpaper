@@ -1,0 +1,82 @@
+import selenium 
+from selenium import webdriver 
+driver = webdriver.Chrome()
+import time
+from selenium.webdriver.common.keys import Keys
+from selenium.common.exceptions import StaleElementReferenceException
+
+import pandas as pd 
+
+
+
+
+
+citylist= []
+countlist = []
+
+
+
+
+xuser = input('please enter your username')
+xpass = input('please write your password')
+searchinput = input('please enter search  keyword ')
+dateinput = input(' please write the year ')
+
+
+
+url="https://www.newspapers.com/"
+driver.get(url)
+sgnbtn = driver.find_element('xpath','//a[@class="signinlink rounded-pill pl-3 pl-md-0 nav-link"]')
+sgnbtn.click()
+time.sleep(1)
+
+user = driver.find_element('xpath','//*[@id="username"]')
+
+user.send_keys(xuser)
+
+passw = driver.find_element('xpath','//*[@id="password"]')
+passw.send_keys(xpass)
+time.sleep(1)
+passw.send_keys(Keys.ENTER)
+
+
+time.sleep(5)
+
+
+searchx = driver.find_element('xpath','//*[@id="keyword-input"]')
+searchx.send_keys(searchinput)
+datex = driver.find_element('xpath','//*[@id="date-input"]')
+datex.send_keys(dateinput)
+
+time.sleep(2)
+datex.send_keys(Keys.ENTER)
+
+
+
+time.sleep(2)
+
+
+rightarrow = driver.find_element('xpath','//*[@id="content"]/div/div[2]/div[3]/div/div/div/nav/ul/li[4]/button')
+
+for z in range(0,10):
+    try:
+        z = rightarrow.click()
+        z
+        city = driver.find_elements('xpath','//span[@class="text-capitalize pl-3"]')
+        for c in city:
+            citylist.append(c.text)
+        count = driver.find_elements('xpath','//span[@class="text-muted text-small pr-3"]')
+        for n in count:
+            countlist.append(n.text)
+    except:
+        pass
+        driver.quit()
+
+print(citylist)
+print(countlist)
+        
+
+file = pd.DataFrame.from_dict({'c':citylist,'q':countlist},orient='index').transpose()
+file.to_csv(searchinput+'.csv')
+file
+
