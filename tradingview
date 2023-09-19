@@ -1,0 +1,81 @@
+import selenium 
+from selenium import webdriver
+driver = webdriver.Chrome()
+import time 
+from selenium.webdriver.common.keys import Keys
+
+
+
+
+firstdate = input("please write your first date      ")
+print("first date :" + firstdate)
+seconddate = input("please write your second date       ")
+print("second date :" + seconddate)
+sympol  = input("please write sympol     ")
+print("sympol :" + sympol)
+
+
+
+
+url = "https://www.tradingview.com/chart"
+driver.get(url)
+time.sleep(3)
+
+
+
+
+
+
+
+
+
+
+
+
+#the sympol
+
+
+
+startsearch = driver.find_element('xpath','//button[@id="header-toolbar-symbol-search"]')
+startsearch.click()
+
+time.sleep(1)
+searchinput = driver.find_element('xpath','//input[@class="search-ZXzPWcCf upperCase-ZXzPWcCf input-qm7Rg5MB"]')
+searchinput.send_keys()
+
+time.sleep(1)
+searchinput.send_keys(sympol)
+searchinput.send_keys(Keys.ENTER)
+
+
+
+
+
+
+
+
+#the  date range 
+button = driver.find_element('xpath','//button[@data-name="go-to-date"]//span[@class="icon-GwQQdU8S"]//*[local-name()="svg"]')
+
+
+button.click()
+
+time.sleep(1)
+btnrange = driver.find_element('xpath','//button[@id="CustomRange"]')
+
+btnrange.click()
+
+firstcelldate = driver.find_element('xpath','//input[@data-name="start-date-range"]')
+secondcelldate =  driver.find_element('xpath','//input[@data-name="end-date-range"]')
+
+firstcelldate.send_keys(firstdate)
+secondcelldate.send_keys(seconddate)
+time.sleep(1)
+submit  = driver.find_element('xpath','//button[@name="submit"]')
+submit.click()
+
+
+
+
+
+
