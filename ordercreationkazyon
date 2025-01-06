@@ -1,0 +1,118 @@
+import pandas as pd 
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
+from datetime import datetime
+import time
+Tk().withdraw()
+
+
+
+print(" please Choose Upload SHeet ")
+time.sleep(3)
+uploadsheetfilename = askopenfilename()
+uploadsheet =  pd.read_excel(uploadsheetfilename)
+print(uploadsheetfilename)
+
+print(" please Choose Material_list SHeet ")
+time.sleep(3)
+materialsheetfilename  = askopenfilename()
+print("Pleae Wait Reading Materil list ")
+materiallist  =  pd.read_excel(materialsheetfilename)
+
+materiallist =  materiallist[['Material','Mat.Exp.-Local','Box Quantity','Vendor Name','Pur. Price-Gross']]
+print(" please Choose Regions_List SHeet ")
+time.sleep(3)
+regionslistfilename =  askopenfilename()
+regions =  pd.read_excel(regionslistfilename)
+
+mergeddata =  pd.merge(left=uploadsheet,right=materiallist,left_on='Material*',right_on='Material')
+mergeddata =  pd.merge(left=mergeddata,right=regions,left_on='Receiving Site*',right_on='Region')
+
+
+mergeddata =  mergeddata.drop(columns=['Region','Material'])
+mergeddata =  mergeddata.assign(total_value = mergeddata['Quantity*']*mergeddata['Pur. Price-Gross'])
+mergeddata =  mergeddata.assign(total_boxes = mergeddata['Quantity*']/mergeddata['Box Quantity'])
+mergeddata =  mergeddata.assign(PO_Number  = mergeddata['Vendor*'].astype(str) + mergeddata['Receiving Site*'].astype(str)+ datetime.today().strftime('%Y-%m-%d'))
+
+
+mergeddata.rename(columns={'Box Quantity':'MPQ','Delivery Date\n(DD.MM.YYYY)':'Delivery date'})
+
+from docxtpl import DocxTemplate
+from docx.shared import Mm
+from datetime import datetime
+from docx2pdf import convert
+
+
+print(" please Choose Template SHeet ")
+time.sleep(3)
+templatefilename =  askopenfilename()
+doc = DocxTemplate(templatefilename)
+today =  datetime.today().strftime('%Y-%m-%d')
+
+
+filenamelist = []
+
+ponumberlist = []
+
+
+for i in mergeddata['Vendor Name'].unique():
+    print(i)
+    
+    for r in mergeddata['Region Name '].loc[mergeddata['Vendor Name'] == i]:
+        print(r)
+        materialnamelist = []
+        totalvaluelist = []
+        totalquantitylist = []
+        boxes_list = []
+        invoicevalue = []
+        materialcodelist = []
+        for s in mergeddata['Mat.Exp.-Local'].loc[(mergeddata['Vendor Name'] == i) & (mergeddata['Region Name '] == r)]:
+            print(s)
+            materialnamelist.append(s)
+            
+        for p in mergeddata['total_value'].loc[(mergeddata['Vendor Name'] == i) & (mergeddata['Region Name '] == r)]:
+            print(p)
+            totalvaluelist.append(int(p))
+            invoicevalue.append(int(p))
+        for q in mergeddata['Quantity*'].loc[(mergeddata['Vendor Name'] == i) & (mergeddata['Region Name '] == r)]:
+            print(q)
+            totalquantitylist.append(q)
+        for boxes in mergeddata['total_boxes'].loc[(mergeddata['Vendor Name'] == i) & (mergeddata['Region Name '] == r)]:
+            print(boxes)
+            boxes_list.append(boxes)
+        for vendorcode in mergeddata['Vendor*'].loc[(mergeddata['Vendor Name'] == i) & (mergeddata['Region Name '] == r)]:
+            vendorcode =  vendorcode
+        for reg in mergeddata['Receiving Site*'].loc[(mergeddata['Vendor Name'] == i) & (mergeddata['Region Name '] == r)]:
+            plantcode = reg
+        for mat in mergeddata['Material*'].loc[(mergeddata['Vendor Name'] == i) & (mergeddata['Region Name '] == r)]:
+            materialcodelist.append(mat)
+        for st in mergeddata['Storage Location'].loc[(mergeddata['Vendor Name'] == i) & (mergeddata['Region Name '] == r)]:
+            storagelocation = st
+
+        print(sum(invoicevalue))
+        totalinvoicevalue =  sum(invoicevalue)
+        PO_number =  str(vendorcode)+str(reg)+str(today)
+        ponumberlist.append(PO_number)
+            
+
+        print(PO_number)
+        doc.render({'name': i ,'invoice_list':materialnamelist,'value_list': totalvaluelist, 'qty_list':totalquantitylist , 'totalboxeslist':boxes_list,'date':today,'Ponumber':PO_number,'Regionname':r,'total_value':totalinvoicevalue
+                    ,'materialcode_list':materialcodelist,'st_location':st})
+        doc.save(i+"  "+ r+".docx")
+        file = i+"  "+ r+".docx"
+        print(file)
+        print("word Done")
+        ##convert(file)
+        print("pdf Done ")
+        filenamelist.append(file)
+       
+
+filenamelistdf = pd.DataFrame(filenamelist)
+ponumberfile =  pd.DataFrame(ponumberlist)
+#mergeddata['PO_Number'] = ponumberfile
+ponumberfile.to_csv('ponumbers.csv')
+mergeddata.to_csv('zr05.csv',encoding='utf-8-sig')
+
+
+for files in  filenamelistdf[0].unique():
+    convert(files)
