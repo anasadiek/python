@@ -1,0 +1,9 @@
+-merge all data from subfolder to crea full dataframe 
+- drop some columns ('start_station_latitude','start_station_longitude','end_station_name','end_station_latitude') 
+- Clean Data Drop Na 
+-  I want to know is " How long does the average trip take?"
+- Calculate With Munites 
+- show disribution over The Gender 
+- Show The Distribution Over The Climate 
+- Show The Distribution Over The Gender With Climate Legend 
+- Go Futher Details And Show The Distribution Over the Month 
