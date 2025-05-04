@@ -1,0 +1,76 @@
+
+✅ 1. Understanding Patient Demographics
+Questions:
+
+What’s the age distribution of patients?
+
+are adverse reactions more common in specific sexes or age groups?
+
+Suggested KPIs:
+
+Average patient age by sex.
+
+Patient distribution by state or country.
+
+Percentage of patients in high-risk age groups (e.g., elderly).
+
+✅ 2. Monitoring Treatment Effectiveness
+Questions:
+
+Which drug (Auralin or Novodra) results in better HBA1C improvement?
+
+Are there patterns between demographics and treatment success?
+
+Suggested KPIs:
+
+Average HBA1C change per treatment type.
+
+% of patients who improved HBA1C by at least .39 point.
+
+HBA1C improvement rate by age group or sex.
+
+✅ 3. Adverse Reactions Tracking
+Questions:
+
+Which treatments are associated with more adverse reactions?
+
+Are specific adverse reactions common in certain groups?
+
+Suggested KPIs:
+
+Adverse reaction rate per drug.
+
+Most common adverse reactions (Top 5).
+
+% of patients with any reported adverse reaction.
+
+✅ 4. BMI and Health Risk
+Questions:
+
+How does BMI correlate with treatment outcome?
+
+Are overweight patients responding differently to treatments?
+
+Suggested KPIs:
+
+Average BMI by treatment group.
+
+% of patients in each BMI category (underweight, normal, overweight, obese).
+
+Correlation between BMI and HBA1C change.
+
+✅ 5. Data Quality / Completeness
+Questions:
+
+Are there any missing or inconsistent records?
+
+Is patient information linked correctly across tables?
+
+Suggested KPIs:
+
+% of records with missing height, weight, or contact info.
+
+% of patients without matched treatment or adverse reaction records.
+
+Data consistency score (e.g., all names matched across tables).
+
